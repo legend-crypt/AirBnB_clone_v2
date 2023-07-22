@@ -28,7 +28,7 @@ def display_C_text(text):
     display a a text when a user navigate to hbnb page
     """
     new_txt = text.replace('_', ' ')
-    return f"C {escape(new_txt)}"
+    return f"C {new_txt}"
 
 
 if __name__ == "__main__":
