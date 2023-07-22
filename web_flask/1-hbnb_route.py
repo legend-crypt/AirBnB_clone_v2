@@ -11,6 +11,7 @@ def run_web():
     """runs a flask server on port 0.0.0.0:5000"""
     return "Hello HBNB"
 
+
 @app.route('/hbnb')
 def display_hbnb():
     """
