@@ -1,19 +1,19 @@
 {
-    "State.6f86683d-c657-419c-a0e2-d44dee721d15": {
+    "State.079247b5-8d22-46c8-a729-ff5b1e64ecb5": {
         "name": "California",
-        "id": "6f86683d-c657-419c-a0e2-d44dee721d15",
-        "created_at": "2024-02-20T17:49:44.111736",
-        "updated_at": "2024-02-20T17:49:44.111755",
+        "id": "079247b5-8d22-46c8-a729-ff5b1e64ecb5",
+        "created_at": "2024-02-20T21:04:22.047104",
+        "updated_at": "2024-02-20T21:04:22.047117",
         "__class__": "State"
     },
-    "State.24961fcc-f738-4f91-8341-49cbabf2aca1": {
+    "State.a0e53eff-a343-40ef-84f1-767b37e45f6a": {
         "name": "Arizona",
-        "id": "24961fcc-f738-4f91-8341-49cbabf2aca1",
-        "created_at": "2024-02-20T17:49:44.120075",
-        "updated_at": "2024-02-20T17:49:44.120082",
+        "id": "a0e53eff-a343-40ef-84f1-767b37e45f6a",
+        "created_at": "2024-02-20T21:04:22.055669",
+        "updated_at": "2024-02-20T21:04:22.055678",
         "__class__": "State"
     },
-    "Place.e38dd435-a097-4f75-9dfc-6c0234c89c87": {
+    "Place.4022e728-1c60-45e2-85e4-bcbf5a390de9": {
         "city_id": "0001",
         "user_id": "0001",
         "name": "My little house",
@@ -23,9 +23,37 @@
         "price_by_night": 300,
         "latitude": 37.773972,
         "longitude": -122.431297,
-        "id": "e38dd435-a097-4f75-9dfc-6c0234c89c87",
-        "created_at": "2024-02-20T17:49:44.121159",
-        "updated_at": "2024-02-20T17:49:44.121169",
+        "id": "4022e728-1c60-45e2-85e4-bcbf5a390de9",
+        "created_at": "2024-02-20T21:04:22.056797",
+        "updated_at": "2024-02-20T21:04:22.056804",
         "__class__": "Place"
+    },
+    "State.e44c39b3-978f-45e8-9d85-e7152ef18225": {
+        "id": "e44c39b3-978f-45e8-9d85-e7152ef18225",
+        "created_at": "2024-02-20T21:31:07.232375",
+        "updated_at": "2024-02-20T21:31:07.232382",
+        "name": "California",
+        "__class__": "State"
+    },
+    "State.fd34be12-5dc1-4a08-ad36-9249adf339cf": {
+        "id": "fd34be12-5dc1-4a08-ad36-9249adf339cf",
+        "created_at": "2024-02-20T21:31:07.233469",
+        "updated_at": "2024-02-20T21:31:07.233476",
+        "name": "Nevada",
+        "__class__": "State"
+    },
+    "State.b56feeef-8b34-4646-a012-2828d2ad5240": {
+        "id": "b56feeef-8b34-4646-a012-2828d2ad5240",
+        "created_at": "2024-02-20T21:32:06.403841",
+        "updated_at": "2024-02-20T21:32:06.403848",
+        "name": "California",
+        "__class__": "State"
+    },
+    "State.ea25f16d-f670-4ae0-b821-831ca5c3a508": {
+        "id": "ea25f16d-f670-4ae0-b821-831ca5c3a508",
+        "created_at": "2024-02-20T21:32:06.404909",
+        "updated_at": "2024-02-20T21:32:06.404916",
+        "name": "Nevada",
+        "__class__": "State"
     }
 }
