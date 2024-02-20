@@ -128,7 +128,7 @@ class HBNBCommand(cmd.Cmd):
             kwargs = {}
             for atr in cmds:
                 if '=' in atr:
-                    atr = atr.split('=') # split list into key, value
+                    atr = atr.split('=')  # split list into key, value
                     if atr[1].isdigit():
                         atr[1] = int(atr[1])
                         kwargs[atr[0]] = atr[1]
@@ -343,6 +343,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
-
-
-
