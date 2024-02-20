@@ -117,34 +117,35 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         """ Create an object of any class"""
         cmds = args.split(' ')
-        # print(f"cmds {cmds}")
-        kwargs = {}
-        for atr in cmds:
-            if '=' in atr:
-                atr = atr.split('=')
-                if atr[1].isdigit():
-                    atr[1] = int(atr[1])
-                    kwargs[atr[0]] = atr[1]
-                elif atr[1].find('.') != -1:
-                    atr[1] = float(atr[1])
-                    kwargs[atr[0]] = atr[1]
-                elif atr[1].find('\"') != -1:
-                    atr[1] = atr[1].replace('\"', '')
-                    if atr[1].find('_') != -1:
-                        atr[1] = atr[1].replace('_', ' ')
-                    kwargs[atr[0]] = atr[1]
         if not args:
             print("** class name missing **")
-            return
+            # return
         elif cmds[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
-            return
-        new_instance = HBNBCommand.classes[cmds[0]]()
-        kwargs.update(new_instance.to_dict())
-        # print(kwargs)
-        HBNBCommand.classes[cmds[0]](**kwargs)
-        storage.save()
-        print(new_instance.id)
+            # return
+        # print(f"cmds {cmds}")
+        else:
+            kwargs = {}
+            for atr in cmds:
+                if '=' in atr:
+                    atr = atr.split('=') # split list into key, value
+                    if atr[1].isdigit():
+                        atr[1] = int(atr[1])
+                        kwargs[atr[0]] = atr[1]
+                    elif atr[1].find('.') != -1:
+                        atr[1] = float(atr[1])
+                        kwargs[atr[0]] = atr[1]
+                    elif atr[1].find('\"') != -1:
+                        atr[1] = atr[1].replace('\"', '')
+                        if atr[1].find('_') != -1:
+                            atr[1] = atr[1].replace('_', ' ')
+                        kwargs[atr[0]] = atr[1]
+            new_instance = HBNBCommand.classes[cmds[0]]()
+            kwargs.update(new_instance.to_dict())
+            # print(kwargs)
+            HBNBCommand.classes[cmds[0]](**kwargs)
+            storage.save()
+            print(new_instance.id)
 
     def help_create(self):
         """ Help information for the create method """
@@ -342,3 +343,6 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
+
+
+
