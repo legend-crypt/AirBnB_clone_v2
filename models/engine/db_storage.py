@@ -4,7 +4,7 @@ Module for our new MySQL Storage
 """
 import os
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
 
 
@@ -67,3 +67,15 @@ class DBStorage:
         """Delete from the current database session obj if not None"""
         if obj:
             self.__session.delete(obj)
+
+    def reload(self):
+        """Reloads all tables in the database and creates a new session"""
+
+        # Create all tables in the database
+        Base.metadata.create_all(self.__engine)
+
+        # Create a new session with sessionmaker and bind it to the engine
+        Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
+
+        # Use scoped_session to ensure thread safety
+        self.__session = scoped_session(Session)
