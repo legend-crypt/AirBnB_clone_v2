@@ -113,9 +113,9 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """ Overrides the emptyline method of CMD """
         pass
-
+    """
     def do_create(self, args):
-        """ Create an object of any class"""
+         Create an object of any class
         cmds = args.split(' ')
         if not args:
             print("** class name missing **")
@@ -135,8 +135,8 @@ class HBNBCommand(cmd.Cmd):
                     elif atr[1].find('.') != -1:
                         atr[1] = float(atr[1])
                         kwargs[atr[0]] = atr[1]
-                    elif atr[1].find('\"') != -1:
-                        atr[1] = atr[1].replace('\"', '')
+                    elif atr[1].find('"') != -1:
+                        atr[1] = atr[1].replace('"', '')
                         if atr[1].find('_') != -1:
                             atr[1] = atr[1].replace('_', ' ')
                         kwargs[atr[0]] = atr[1]
@@ -144,6 +144,40 @@ class HBNBCommand(cmd.Cmd):
             kwargs.update(new_instance.to_dict())
             # print(kwargs)
             HBNBCommand.classes[cmds[0]](**kwargs)
+            storage.save()
+            print(new_instance.id)
+    """
+
+    def do_create(self, args):
+        """Creates an object of any class"""
+        cmds = args.split()
+
+        if not args:
+            print("** class name is missing **")
+        elif cmds[0] not in self.classes:
+            print("** class doesn't exist **")
+        else:
+            kwargs = {}
+
+            for atr in cmds[1:]:
+                if '=' in atr:
+                    key, value = atr.split('=')
+                    value = value.replace('"', '')
+                    value = value.replace('_', ' ')
+
+                    # Check and convert to appropriate types
+                    if value.isdigit():
+                        value = int(value)
+                    elif '.' in value:
+                        try:
+                            value = float(value)
+                        except ValueError:
+                            pass  # Keep as a string
+
+                    kwargs[key] = value
+
+            new_instance = self.classes[cmds[0]](**kwargs)
+            storage.new(new_instance)
             storage.save()
             print(new_instance.id)
 
