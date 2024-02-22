@@ -6,6 +6,21 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+
+classes = {
+    "User": User,
+    "State": State,
+    "City": City,
+    "Amenity": Amenity,
+    "Place": Place,
+    "Review": Review
+    }
 
 
 class DBStorage:
@@ -36,22 +51,19 @@ class DBStorage:
 
     def all(self, cls=None):
         """Query all the objects depending on the class name (cls)"""
-        from models import User, State, City, Amenity, Place, Review
-
-        if cls is None:
-            classes = [User, State, City, Amenity, Place, Review]
-        else:
-            classes = [cls]
 
         objects = {}
-
-        for class_ in classes:
-            class_name = class_.__name__
-            result = self.__session.query(class_).all()
-
+        if cls:
+            result = self.__session.query(classes[cls]).all()
             for obj in result:
-                key = f"{class_name}.{obj.id}"
+                key = f"{cls}.{obj.id}"
                 objects[key] = obj
+        else:
+            for class_ in classes:
+                result = self.__session.query(class_).all()
+                for obj in result:
+                    key = f"{class_}.{obj.id}"
+                    objects[key] = obj
 
         return objects
 
@@ -72,11 +84,8 @@ class DBStorage:
         """Reloads all tables in the database and creates a new session"""
 
         # Create all tables in the database
-        Base.metadata.create_all(self.__engine)
-
-        # Create a new session with sessionmaker and bind it to the engine
         Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
-
+        Base.metadata.create_all(self.__engine)
         # Use scoped_session to ensure thread safety
         self.__session = scoped_session(Session)
 

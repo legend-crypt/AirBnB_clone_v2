@@ -10,6 +10,9 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+from os import getenv
+from datetime import datetime
+import uuid
 
 
 class HBNBCommand(cmd.Cmd):
@@ -140,11 +143,14 @@ class HBNBCommand(cmd.Cmd):
                         if atr[1].find('_') != -1:
                             atr[1] = atr[1].replace('_', ' ')
                         kwargs[atr[0]] = atr[1]
-            new_instance = HBNBCommand.classes[cmds[0]]()
-            kwargs.update(new_instance.to_dict())
-            # print(kwargs)
-            HBNBCommand.classes[cmds[0]](**kwargs)
-            storage.save()
+            if getenv("HBNB_TYPE_STORAGE") == "db":
+                new_instance = HBNBCommand.classes[cmds[0]](**kwargs)
+                new_instance.save()
+            else:
+                new_instance = HBNBCommand.classes[cmds[0]]()
+                kwargs.update(new_instance.to_dict())
+                new_instance = HBNBCommand.classes[cmds[0]](**kwargs)
+                new_instance.save()
             print(new_instance.id)
 
     def help_create(self):
@@ -226,12 +232,21 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
+            if getenv("HBNB_TYPE_STORAGE") == "db":
+                # print(f"storage all {storage.all(args)}")
+                for k, v in storage.all(args).items():
                     print_list.append(str(v))
+            else:
+                for k, v in storage._FileStorage__objects.items():
+                    if k.split('.')[0] == args:
+                        print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
+            if getenv("HBNB_TYPE_STORAGE") == "db":
+                for k, v in storage.all().items():
+                    print_list.append(str(v))
+            else:
+                for k, v in storage._FileStorage__objects.items():
+                    print_list.append(str(v))
 
         print(print_list)
 
