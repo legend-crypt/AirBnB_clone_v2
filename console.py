@@ -136,8 +136,11 @@ class HBNBCommand(cmd.Cmd):
                         atr[1] = int(atr[1])
                         kwargs[atr[0]] = atr[1]
                     elif atr[1].find('.') != -1:
-                        atr[1] = float(atr[1])
-                        kwargs[atr[0]] = atr[1]
+                        try:
+                            atr[1] = float(atr[1]) # try to convert to float if possible
+                            kwargs[atr[0]] = atr[1]
+                        except:
+                            kwargs[atr[0]] = atr[1] ## if not possible, leave as string
                     elif atr[1].find('\"') != -1:
                         atr[1] = atr[1].replace('\"', '')
                         if atr[1].find('_') != -1:

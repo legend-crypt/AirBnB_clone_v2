@@ -12,8 +12,8 @@ class Place(BaseModel, Base):
     if getenv("HBNB_TYPE_STORAGE") == "db":
         __tablename__ = 'places'
 
-        city_id = Column(String(60), nullable=False, ForeignKey('cities.id'))
-        user_id = Column(String(60), nullable=False, ForeignKey('users.id'))
+        city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
+        user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
         name = Column(String(128), nullable=False)
         description = Column(String(1024))
         number_rooms = Column(Integer, nullable=False, default=0)
@@ -45,3 +45,7 @@ class Place(BaseModel, Base):
             all_reviews = storage.all(Review)
             return [review for review in all_reviews.values()
                     if review.place_id == self.id]
+
+    def __init__(self, *args, **kwargs):
+        """initializes place"""
+        super().__init__(*args, **kwargs)
