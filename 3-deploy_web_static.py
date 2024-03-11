@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """script that creates and
 distributes an archive to your web servers"""
 do_pack = __import__('1-pack_web_static').do_pack
