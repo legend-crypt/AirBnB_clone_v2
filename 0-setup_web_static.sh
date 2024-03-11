@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #script that sets up your web servers for the deployment
 
-apt-get -y install nginx
+apt-get install nginx -y
 mkdir -p /data/
 mkdir -p /data/web_static/
 mkdir -p /data/web_static/releases/
@@ -12,5 +12,7 @@ chown -R ubuntu:ubuntu /data/
 sed -i '16a\
   location /hbnb_static/ {\
 	alias /data/web_static/current/;\
-  }' /etc/nginx/sites-available/default
-nginx -s reload
+ }' /etc/nginx/sites-available/default
+# sudo sed -i '38i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t\tautoindex off;\n\t}\n' /etc/nginx/sites-available/default
+
+sudo service nginx restart
