@@ -37,6 +37,9 @@ class DBStorage:
         password = os.environ.get("HBNB_MYSQL_PWD")
         host = os.environ.get("HBNB_MYSQL_HOST")
         database = os.environ.get("HBNB_MYSQL_DB")
+        env = os.environ.get("HBNB_ENV")
+
+        print(user, password, host, database, env)
 
         self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(
                             user, password, host, database),
@@ -46,7 +49,7 @@ class DBStorage:
         Session = sessionmaker(bind=self.__engine)
         self.__session = Session()
 
-        if os.environ.get("HBNB_ENV") == "test":
+        if env == "test":
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
