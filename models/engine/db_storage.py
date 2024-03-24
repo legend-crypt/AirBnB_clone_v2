@@ -57,7 +57,8 @@ class DBStorage:
 
         objects = {}
         if cls:
-            result = self.__session.query(classes[cls]).all()
+            class_name = cls.__name__
+            result = self.__session.query(classes[class_name]).all()
             for obj in result:
                 key = f"{cls}.{obj.id}"
                 objects[key] = obj
@@ -94,4 +95,4 @@ class DBStorage:
 
     def close(self):
         """Calls remove() method on the private session attribute"""
-        self.__session.close()
+        self.__session.remove()
