@@ -3,11 +3,13 @@
 import uuid
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, DateTime, func
-from models import storage_type
+from sqlalchemy import Column, String, DateTime
 from os import getenv
 
-Base = declarative_base()
+if getenv("HBNB_TYPE_STORAGE") == "db":
+    Base = declarative_base()
+else:
+    Base = object
 
 
 class BaseModel:
@@ -30,19 +32,23 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
         else:
-            if getenv("HBNB_TYPE_STORAGE") != "db":
+            if "updated_at" in kwargs or "created_at" in kwargs:
                 kwargs['updated_at'] = datetime.strptime(
                     kwargs['updated_at'],
                     '%Y-%m-%dT%H:%M:%S.%f')
                 kwargs['created_at'] = datetime.strptime(
                     kwargs['created_at'],
                     '%Y-%m-%dT%H:%M:%S.%f')
-                del kwargs['__class__']
+            else:
+                self.created_at = datetime.now()
+                self.updated_at = datetime.now()
             for key, value in kwargs.items():
                 # Check if attribute already exists
                 # if not hasattr(self, key):
                 if key != "__class__":
                     setattr(self, key, value)
+            if kwargs.get('id', None) is None:
+                self.id = str(uuid.uuid4())
 
     def __str__(self):
         """Returns a string representation of the instance"""

@@ -9,6 +9,7 @@ if storage_type == 'db':
     from models.engine.db_storage import DBStorage
     storage = DBStorage()
 else:
+    print("in file storage")
     from models.engine.file_storage import FileStorage
     storage = FileStorage()
 
