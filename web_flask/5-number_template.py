@@ -44,7 +44,5 @@ def display_template(n):
     return render_template("5-number.html", n=n)
 
 
-
-
 if __name__ == "__main__":
     app.run(debug=True, port=5000, host="0.0.0.0")
