@@ -39,7 +39,7 @@ class DBStorage:
         database = os.environ.get("HBNB_MYSQL_DB")
         env = os.environ.get("HBNB_ENV")
 
-        print(user, password, host, database, env)
+        # print(user, password, host, database, env)
 
         self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(
                             user, password, host, database),
@@ -57,7 +57,7 @@ class DBStorage:
 
         objects = {}
         if cls:
-            class_name = cls.__name__
+            class_name = eval(cls).__name__
             result = self.__session.query(classes[class_name]).all()
             for obj in result:
                 key = f"{cls}.{obj.id}"

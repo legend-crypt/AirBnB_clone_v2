@@ -23,8 +23,8 @@ class State(BaseModel, Base):
     if getenv("HBNB_TYPE_STORAGE") != "db":
         @property
         def cities(self):
-            from models import storage
             """Getter attribute that gets all cities"""
+            from models import storage
             city_list = []
             all_cities = storage.all(City)
             for city in all_cities.values():
